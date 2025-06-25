@@ -8,3 +8,5 @@ App for simulating MXNB stablecoin payments using Sepolia testnet.
 2. `npm run dev`
 
 Contract deployed with Hardhat.
+
+
