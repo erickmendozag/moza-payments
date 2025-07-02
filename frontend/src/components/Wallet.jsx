@@ -12,6 +12,7 @@ import ScheduledTransferCalendar from "./ScheduledTransferCalendar";
 import ScheduledTransferList from "./ScheduledTransferList";
 import BeneficiaryDirectory from "./BeneficiaryDirectory";
 import TransferMap from "./TransferMap";
+import CentralAccountPanel from "./CentralAccountPanel";
 
 
 const contractAddress = import.meta.env.VITE_MXNB_CONTRACT_ADDRESS;
@@ -155,6 +156,8 @@ function Wallet() {
           <AddressRegistry />
           <BeneficiaryDirectory />
           <TransferMap />
+          <CentralAccountPanel />
+          
 
 
           <button
