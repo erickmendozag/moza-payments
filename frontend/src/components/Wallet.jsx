@@ -13,6 +13,14 @@ import ScheduledTransferList from "./ScheduledTransferList";
 import BeneficiaryDirectory from "./BeneficiaryDirectory";
 import TransferMap from "./TransferMap";
 import CentralAccountPanel from "./CentralAccountPanel";
+import MXNBMintSimulator from "./MXNBMintSimulator";
+import MXNBRedemptionSimulator from './MXNBRedemptionSimulator';
+import JunoMintSimulator from './JunoMintSimulator';
+import FXConversionSimulator from './FXConversionSimulator';
+import RedemptionSimulator from './RedemptionSimulator';
+import MultiClabeManager from './MultiClabeManager';
+import EmbeddedWalletManager from './EmbeddedWalletManager';
+import InsightsCenter from './InsightsCenter';
 
 
 const contractAddress = import.meta.env.VITE_MXNB_CONTRACT_ADDRESS;
@@ -110,6 +118,12 @@ function Wallet() {
     setScheduledTransfers((prev) => [...prev, transfer]);
   };
 
+  const totalCommissionSaved = transactions.reduce((total, tx) => {
+    const isSend = tx.from === currentAccount;
+    return isSend ? total + parseFloat(tx.value || 0) * 0.045 : total;
+  }, 0);
+  
+
   return (
     <div className="p-6">
       {!currentAccount ? (
@@ -145,6 +159,7 @@ function Wallet() {
             Mint 1000 MXNB
           </button>
 
+
           <TransactionHistory transactions={transactions} />
           <MonthlyReport transactions={transactions} currentAddress={currentAccount} />
           <TransactionTracker currentStep={3} />
@@ -157,7 +172,15 @@ function Wallet() {
           <BeneficiaryDirectory />
           <TransferMap />
           <CentralAccountPanel />
-          
+          <MXNBMintSimulator onSimulateMint={(amount) => setBalance(balance + amount)} />
+          <MXNBRedemptionSimulator onSimulateRedemption={(data) => console.log('Redención simulada:', data)} />
+          <JunoMintSimulator />
+          <FXConversionSimulator />
+          <RedemptionSimulator />
+          <MultiClabeManager />
+          <EmbeddedWalletManager />
+          <InsightsCenter transactions={transactions} commissionSaved={totalCommissionSaved} />
+
 
 
           <button
